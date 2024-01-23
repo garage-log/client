@@ -9,14 +9,14 @@
       <div class="text-subtitle-1 text-medium-emphasis">Account</div>
       <v-form v-model="form" @submit.prevent="onSubmit">
         <v-text-field
-          v-model="email"
+          v-model="username"
           density="compact"
           placeholder="Email address"
           prepend-inner-icon="mdi-email-outline"
           variant="outlined"
           :readonly="loading"
           clearable
-          label="E-mail"
+          label="Username"
           class="mb-2"
           :rules="[required]"
         ></v-text-field>
@@ -31,8 +31,8 @@
             rel="noopener noreferrer"
             target="_blank"
           >
-            Forgot login password?</a
-          >
+            Forgot login password?
+          </a>
         </div>
 
         <v-text-field
@@ -70,14 +70,14 @@
           </v-card-text>
         </v-card>
         <v-card-text class="text-center">
-          <a
+          <v-btn
             class="text-blue text-decoration-none"
-            href="#"
+            to="register"
             rel="noopener noreferrer"
-            target="_blank"
           >
-            Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-          </a>
+            Sign up now
+            <v-icon icon="mdi-chevron-right"></v-icon>
+          </v-btn>
         </v-card-text>
       </v-form>
     </v-card>
@@ -85,21 +85,27 @@
 </template>
 
 <script>
+import { useAuthStore } from "@/stores/auth.store.js";
 export default {
-  name: "LoginPage",
-  
+  name: "LoginForm",
+
   data: () => ({
     visible: false,
     form: false,
     email: null,
-    password: null,
+    password: "12345",
     loading: false,
+    username: "murat",
   }),
   methods: {
     onSubmit() {
       if (!this.form) return;
 
       this.loading = true;
+
+      const { login } = useAuthStore();
+
+      login({ username: this.username, password: this.password });
 
       setTimeout(() => (this.loading = false), 2000);
     },
