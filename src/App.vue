@@ -4,17 +4,11 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template>
   <header>
-    <img
-      alt="Garage logo"
-      class="logo"
-      src="@/assets/logos.png"
-      height="125"
-    />
+    <img alt="Garage logo" class="logo" src="@/assets/logos.png" height="125" />
 
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/login">Login</RouterLink>
       </nav>
     </div>

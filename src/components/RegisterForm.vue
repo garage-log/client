@@ -1,11 +1,10 @@
 <template>
-  <v-card
-    class="mx-auto pa-12 pb-8"
-    elevation="8"
-    max-width="720"
-    rounded="lg"
-  >
-    <div class="text-subtitle-1 text-medium-emphasis mb-5 text-center font-weight-bold text-sm-h4">Register Form</div>
+  <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="720" rounded="lg">
+    <div
+      class="text-subtitle-1 text-medium-emphasis mb-5 text-center font-weight-bold text-sm-h4"
+    >
+      Register Form
+    </div>
     <v-form v-model="form" @submit.prevent="onSubmit">
       <v-text-field
         v-model="name"
@@ -106,39 +105,29 @@ export default {
   data: () => ({
     visible: false,
     form: false,
-    name: null,
-    surname: null,
-    username: null,
-    email: null,
-    password: null,
-    confirmPassword: null,
+    name: "fatih",
+    surname: "sultan",
+    username: "fatih",
+    email: "fatih@mail.com",
+    password: "12345",
+    confirmPassword: "12345",
     loading: false,
   }),
   methods: {
     onSubmit() {
       if (!this.form) return;
 
+      this.$emit("registration", {
+        name: this.name,
+        surname: this.surname,
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      });
+
       this.loading = true;
       setTimeout(() => {
-        this.$emit("registration", {
-          name: this.name,
-          surname: this.surname,
-          username: this.username,
-          email: this.email,
-          password: this.password,
-          confirmPassword: this.confirmPassword,
-        });
-
-        this.name = null;
-        this.surname = null;
-        this.username = null;
-        this.email = null;
-        this.password = null;
-        this.confirmPassword = null;
         this.loading = false;
-
-        // Route to Home view
-        
       }, 2000);
     },
     required(value) {
