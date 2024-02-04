@@ -6,7 +6,9 @@
       max-width="448"
       rounded="lg"
     >
-      <div class="text-subtitle-1 text-medium-emphasis">Account</div>
+      <div class="text-subtitle-1 text-medium-emphasis">
+        {{ $t("login.account") }}
+      </div>
       <v-form v-model="form" @submit.prevent="onSubmit">
         <v-text-field
           v-model="username"
@@ -16,7 +18,7 @@
           variant="outlined"
           :readonly="loading"
           clearable
-          label="Username"
+          :label="$t('login.username')"
           class="mb-2"
           :rules="[required]"
         ></v-text-field>
@@ -24,7 +26,7 @@
         <div
           class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
         >
-          Password
+          {{ $t("login.password") }}
           <a
             class="text-caption text-decoration-none text-blue"
             href="#"
@@ -46,7 +48,7 @@
           :readonly="loading"
           @click:append-inner="visible = !visible"
           :rules="[required]"
-          label="Password"
+          :label="$t('login.password')"
           clearable
         ></v-text-field>
 
@@ -60,7 +62,7 @@
           type="submit"
           variant="elevated"
         >
-          Log In
+          {{ $t("login.btn") }}
         </v-btn>
 
         <v-card class="mb-12" color="surface-variant" variant="tonal">
