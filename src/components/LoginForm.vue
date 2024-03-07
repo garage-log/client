@@ -1,19 +1,14 @@
 <template>
   <div>
-    <v-card
-      class="mx-auto pa-12 pb-8"
-      elevation="8"
-      max-width="448"
-      rounded="lg"
-    >
+    <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
       <div class="text-subtitle-1 text-medium-emphasis">
-        {{ $t("login.account") }}
+        {{ $t('login.account') }}
       </div>
-      <v-form v-model="form" @submit.prevent="onSubmit">
+      <v-form ref="loginForm" v-model="form" @submit.prevent="onSubmit">
         <v-text-field
           v-model="username"
           density="compact"
-          placeholder="Email address"
+          placeholder="Username"
           prepend-inner-icon="mdi-email-outline"
           variant="outlined"
           :readonly="loading"
@@ -23,16 +18,9 @@
           :rules="[required]"
         ></v-text-field>
 
-        <div
-          class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between"
-        >
-          {{ $t("login.password") }}
-          <a
-            class="text-caption text-decoration-none text-blue"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
+        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+          {{ $t('login.password') }}
+          <a class="text-caption text-decoration-none text-blue" href="#" rel="noopener noreferrer" target="_blank">
             Forgot login password?
           </a>
         </div>
@@ -62,21 +50,16 @@
           type="submit"
           variant="elevated"
         >
-          {{ $t("login.btn") }}
+          {{ $t('login.btn') }}
         </v-btn>
 
         <v-card class="mb-12" color="surface-variant" variant="tonal">
           <v-card-text class="text-medium-emphasis text-caption">
-            If you are not a member yet, you can become a free member with the
-            link below.
+            If you are not a member yet, you can become a free member with the link below.
           </v-card-text>
         </v-card>
         <v-card-text class="text-center">
-          <v-btn
-            class="text-blue text-decoration-none"
-            to="register"
-            rel="noopener noreferrer"
-          >
+          <v-btn class="text-blue text-decoration-none" to="register" rel="noopener noreferrer">
             Sign up now
             <v-icon icon="mdi-chevron-right"></v-icon>
           </v-btn>
@@ -87,32 +70,40 @@
 </template>
 
 <script>
-import { useAuthStore } from "@/stores/auth.store.js";
 export default {
-  name: "LoginForm",
+  name: 'LoginForm',
 
   data: () => ({
     visible: false,
     form: false,
     email: null,
-    password: "12345",
+    password: '',
     loading: false,
-    username: "murat",
+    username: '',
   }),
   methods: {
     onSubmit() {
       if (!this.form) return;
 
+      this.$emit('login', {
+        username: this.username,
+        password: this.password,
+      });
+
       this.loading = true;
 
-      const { login } = useAuthStore();
+      setTimeout(() => {
+          this.loading = false;
+          this.$refs.loginForm.reset();
+          this.username = '';
+          this.password = '';
 
-      login({ username: this.username, password: this.password });
-
-      setTimeout(() => (this.loading = false), 2000);
+          this.$router.push({ name: 'home' });
+        }, 2000);
     },
+
     required(v) {
-      return !!v || "Field is required";
+      return !!v || 'Field is required';
     },
   },
 };

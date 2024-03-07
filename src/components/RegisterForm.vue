@@ -5,7 +5,7 @@
     >
       Register Form
     </div>
-    <v-form v-model="form" @submit.prevent="onSubmit">
+    <v-form ref="registerForm" v-model="form" @submit.prevent="onSubmit">
       <v-text-field
         v-model="name"
         density="compact"
@@ -105,12 +105,12 @@ export default {
   data: () => ({
     visible: false,
     form: false,
-    name: "fatih",
-    surname: "sultan",
-    username: "fatih",
-    email: "fatih@mail.com",
-    password: "12345",
-    confirmPassword: "12345",
+    name: "",
+    surname: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
     loading: false,
   }),
   methods: {
@@ -128,6 +128,13 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
+        this.$refs.registerForm.reset();
+        this.name = "";
+        this.surname = "";
+        this.username = "";
+        this.email = "";
+        this.password = "";
+        this.confirmPassword = "";
       }, 2000);
     },
     required(value) {
