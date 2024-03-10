@@ -8,24 +8,17 @@
   </div>
 </template>
 
-<script>
-import { useAuthStore } from '@/stores/auth.store.js';
-import { useRouter } from 'vue-router';
+<script setup lang="ts">
+import { useAuthStore } from "@/stores/auth.store.js";
+import { useRouter } from "vue-router";
 
-export default {
-  setup() {
-    const authStore = useAuthStore();
-    const router = useRouter();
+const authStore = useAuthStore();
+const router = useRouter();
 
-    const logout = () => {
-      authStore.logout();
-      router.push('/login');
-    };
+const username = authStore.username;
 
-    return {
-      username: authStore.username,
-      logout,
-    };
-  },
+const logout = () => {
+  authStore.logout();
+  router.push("/login");
 };
 </script>
