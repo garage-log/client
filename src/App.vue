@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
+import Notification from "@/components/notification/Notification.vue";
 </script>
 
 <template>
@@ -14,6 +15,7 @@ import { RouterLink, RouterView } from "vue-router";
       </nav>
     </div>
   </header>
+  <Notification />
   <RouterView />
 </template>
 
