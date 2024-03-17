@@ -1,23 +1,38 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
-import Notification from "@/components/notification/Notification.vue";
-</script>
-
 <template>
   <header>
     <img alt="Garage logo" class="logo" src="@/assets/logos.png" height="125" />
 
     <div class="wrapper">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
-        <RouterLink to="/Register">Register</RouterLink>
+        <router-link to="/">Home</router-link>
+        <router-link v-if="loggedIn" to="/vehicleregister"
+          >Vehicle Register</router-link
+        >
+        <router-link v-else to="/login">Login</router-link>
+        <router-link to="/register">Register</router-link>
       </nav>
     </div>
   </header>
   <Notification />
   <RouterView />
 </template>
+
+<script setup>
+import { ref, watch } from "vue";
+import { RouterLink, RouterView } from "vue-router";
+import Notification from "@/components/notification/Notification.vue";
+import { useAuthStore } from "@/stores/auth.store.js";
+
+const authStore = useAuthStore();
+const loggedIn = ref(authStore.isAuthenticated);
+
+watch(
+  () => authStore.isAuthenticated,
+  (value) => {
+    loggedIn.value = value;
+  }
+);
+</script>
 
 <style scoped>
 header {

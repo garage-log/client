@@ -6,6 +6,8 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({
     token: null,
     username: null,
+    userId: null,
+    isAuthenticated: false,
   }),
   actions: {
     async setToken(token) {
@@ -23,6 +25,15 @@ export const useAuthStore = defineStore("auth", {
         localStorage.setItem("username", username);
       } catch (error) {
         console.error("Error setting username:", error);
+      }
+    },
+
+    async setUserId(userId) {
+      try {
+        this.userId = userId;
+        localStorage.setItem("userId", userId);
+      } catch (error) {
+        console.error("Error setting userId:", error);
       }
     },
 
@@ -49,8 +60,11 @@ export const useAuthStore = defineStore("auth", {
           setNotification("error", "login failed");
         }
 
+        this.isAuthenticated = true;
+        console.log("store", this.isAuthenticated);
         await this.setUser(loginResponse.data.user.username);
         await this.setToken(loginResponse.data.user.token);
+        await this.setUserId(loginResponse.data.user.id);
       } catch (error) {
         console.error("Login failed:", error);
         setNotification("error", "login failed");
@@ -66,6 +80,8 @@ export const useAuthStore = defineStore("auth", {
     },
 
     logout() {
+      this.isAuthenticated = false;
+      console.log("logout", this.isAuthenticated);
       this.token = null;
       this.username = null;
       localStorage.removeItem("authToken");
@@ -79,6 +95,8 @@ export const useAuthStore = defineStore("auth", {
         if (storedToken && storedUsername) {
           this.token = storedToken;
           this.username = storedUsername;
+          this.userId = storedUserId;
+          this.isAuthenticated = true;
         }
       } catch (error) {
         console.error("Error checking local storage:", error);
