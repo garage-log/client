@@ -29,7 +29,9 @@ const i18n = createI18n({
 });
 
 const app = createApp(App);
+const pinia = createPinia();
 
-app.use(router).use(createPinia()).use(vuetify).use(i18n);
+app.use(router).use(vuetify).use(i18n);
+app.use(pinia);
 
 app.mount("#app");
