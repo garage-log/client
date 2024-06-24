@@ -6,8 +6,8 @@
       <nav>
         <router-link to="/">Home</router-link>
         <router-link v-if="loggedIn" to="/vehicleregister"
-          >Vehicle Register</router-link
-        >
+          >Vehicle Register
+        </router-link>
         <router-link v-else to="/login">Login</router-link>
         <router-link to="/register">Register</router-link>
       </nav>
@@ -18,13 +18,17 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onBeforeMount, onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import Notification from "@/components/notification/Notification.vue";
 import { useAuthStore } from "@/stores/auth.store.js";
 
 const authStore = useAuthStore();
 const loggedIn = ref(authStore.isAuthenticated);
+
+onMounted(() => {
+  authStore.checkMe();
+});
 
 watch(
   () => authStore.isAuthenticated,

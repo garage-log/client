@@ -11,11 +11,16 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth.store.js";
 import { useRouter } from "vue-router";
+import { onMounted, computed, watch } from "vue";
 
-const authStore = useAuthStore();
 const router = useRouter();
 
-const username = authStore.username;
+const authStore = useAuthStore();
+const username = computed(() => authStore.username);
+
+onMounted(async () => {
+  await authStore.checkMe();
+});
 
 const logout = () => {
   authStore.logout();

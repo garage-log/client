@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useNotificationStore } from "@/stores/notification.store.ts";
+import router from "@/router";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -41,7 +42,6 @@ export const useAuthStore = defineStore("auth", {
       const { setNotification } = useNotificationStore();
 
       try {
-        console.log({ username, password });
         const loginResponse = await axios.post(
           "http://localhost:3000/users/login",
           {
@@ -88,14 +88,23 @@ export const useAuthStore = defineStore("auth", {
       localStorage.removeItem("username");
     },
 
-    checkMe() {
+    async checkMe() {
       try {
         const storedToken = localStorage.getItem("authToken");
         const storedUsername = localStorage.getItem("username");
+
+        if (!storedToken) {
+          (this.token = null), (this.username = null);
+          return;
+        }
+        const res = await axios.get("http://localhost:3000/users/check/me", {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        });
+
         if (storedToken && storedUsername) {
-          this.token = storedToken;
-          this.username = storedUsername;
-          this.userId = storedUserId;
+          await this.setUser(res.data.username);
+          await this.setToken(res.data.token);
+          await this.setUserId(res.data.id);
           this.isAuthenticated = true;
         }
       } catch (error) {
