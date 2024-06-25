@@ -29,9 +29,6 @@ export const useVehicleStore = defineStore("vehicle", {
         const userId = authStore.userId;
         const storedToken = authStore.token;
 
-        console.log(userId);
-        console.log(storedToken);
-
         const res = await axios.post(
           "http://localhost:3000/vehicle/findUserVehicle",
           { userId: userId },

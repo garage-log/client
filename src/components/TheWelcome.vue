@@ -1,6 +1,6 @@
 <template>
-  <div v-if="username">
-    <h1>Welcome {{ username }}</h1>
+  <div v-if="props.username">
+    <h1>Welcome {{ props.username }}</h1>
     <button @click="logout">Logout</button>
   </div>
   <div v-else>
@@ -9,25 +9,21 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from "@/stores/auth.store.js";
-import { useVehicleStore } from "@/stores/vehicle.store.js";
 import { useRouter } from "vue-router";
-import { onMounted, computed, watch } from "vue";
+import { defineEmits, defineProps } from "vue";
 
 const router = useRouter();
 
-const authStore = useAuthStore();
-const vehicleStore = useVehicleStore();
-const username = computed(() => authStore.username);
-
-onMounted(async () => {
-  await authStore.checkMe();
-
-  await vehicleStore.findUserVehicles();
+const props = defineProps({
+  username: {
+    type: String,
+    required: true,
+    default: "",
+  },
 });
 
+const emit = defineEmits(["logout"]);
 const logout = () => {
-  authStore.logout();
-  router.push("/login");
+  emit("logout");
 };
 </script>

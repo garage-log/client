@@ -97,6 +97,9 @@ export const useAuthStore = defineStore("auth", {
           (this.token = null), (this.username = null);
           return;
         }
+
+        router.push('/')
+
         const res = await axios.get("http://localhost:3000/users/check/me", {
           headers: { Authorization: `Bearer ${storedToken}` },
         });
