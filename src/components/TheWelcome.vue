@@ -1,6 +1,6 @@
 <template>
-  <div v-if="username">
-    <h1>Welcome {{ username }}</h1>
+  <div v-if="props.username">
+    <h1>Welcome {{ props.username }}</h1>
     <button @click="logout">Logout</button>
   </div>
   <div v-else>
@@ -9,16 +9,21 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from "@/stores/auth.store.js";
 import { useRouter } from "vue-router";
+import { defineEmits, defineProps } from "vue";
 
-const authStore = useAuthStore();
 const router = useRouter();
 
-const username = authStore.username;
+const props = defineProps({
+  username: {
+    type: String,
+    required: true,
+    default: "",
+  },
+});
 
+const emit = defineEmits(["logout"]);
 const logout = () => {
-  authStore.logout();
-  router.push("/login");
+  emit("logout");
 };
 </script>
