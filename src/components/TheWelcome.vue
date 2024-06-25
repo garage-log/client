@@ -10,16 +10,20 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth.store.js";
+import { useVehicleStore } from "@/stores/vehicle.store.js";
 import { useRouter } from "vue-router";
 import { onMounted, computed, watch } from "vue";
 
 const router = useRouter();
 
 const authStore = useAuthStore();
+const vehicleStore = useVehicleStore();
 const username = computed(() => authStore.username);
 
 onMounted(async () => {
   await authStore.checkMe();
+
+  await vehicleStore.findUserVehicles();
 });
 
 const logout = () => {
