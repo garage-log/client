@@ -26,8 +26,8 @@ import { useAuthStore } from "@/stores/auth.store.js";
 const authStore = useAuthStore();
 const loggedIn = ref(authStore.isAuthenticated);
 
-onMounted(() => {
-  authStore.checkMe();
+onMounted(async () => {
+  await authStore.checkMe();
 });
 
 watch(
