@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <header>
     <img alt="Garage logo" class="logo" src="@/assets/logos.png" height="125" />
 
@@ -18,6 +19,8 @@
 </template>
 
 <script setup>
+import Navbar from "./components/NavBar.vue";
+
 import { ref, watch, onBeforeMount, onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import Notification from "@/components/notification/Notification.vue";
@@ -39,9 +42,11 @@ watch(
 </script>
 
 <style scoped>
+
 header {
   line-height: 1.5;
   max-height: 100vh;
+  border: 1px solid red;
 }
 
 .logo {
