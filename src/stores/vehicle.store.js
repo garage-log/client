@@ -26,12 +26,13 @@ export const useVehicleStore = defineStore("vehicle", {
     async findUserVehicles() {
       try {
         const authStore = useAuthStore();
-        const userId = authStore.userId;
+        this.userId = authStore.userId;
+        console.log(this.userId);
         const storedToken = authStore.token;
 
         const res = await axios.post(
           "http://localhost:3000/vehicle/findUserVehicle",
-          { userId: userId },
+          { userId: this.userId },
           {
             headers: { Authorization: `Bearer ${storedToken}` },
           }
