@@ -15,7 +15,6 @@ import { useVehicleStore } from "@/stores/vehicle.store.js";
 
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import VechileFilterVue from "@/components/VechileFilter.vue";
 // import router from "@/router";
 
 const router = useRouter();

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-200 p-4 rounded-lg shadow-lg w-1/4 h-screen">
+  <div class="bg-gray-200 p-4 shadow-lg w-1/4 h-screen">
     <h2 class="text-lg font-semibold mb-4">Car Filters</h2>
 
     <!-- Brand Filter -->
@@ -38,9 +38,29 @@
       </select>
     </div>
 
+    <!-- Years -->
+    <div class="mb-4">
+      <label for="model" class="block text-sm font-medium text-gray-700"
+        >Years</label
+      >
+      <select
+        v-model="selectedYears"
+        id="model"
+        name="model"
+        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      >
+        <option value="">Select Years</option>
+        <option v-for="year in years" :key="year" :value="year">
+          {{ year }}
+        </option>
+      </select>
+    </div>
+
     <!-- Fuel Type Filter -->
     <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700">Fuel Type</label>
+      <label class="block text-sm font-medium text-gray-700 mb-2"
+        >Fuel Type</label
+      >
       <div class="flex items-center space-x-2">
         <label>
           <input
@@ -88,17 +108,32 @@
 <script>
 export default {
   name: "CarFilter",
+  mounted() {
+    const currentYear = new Date().getFullYear();
+    this.years = Array.from({ length: 80 }, (_, index) => currentYear - index);
+  },
   data() {
     return {
       brands: ["Toyota", "Honda", "Ford", "BMW", "Mercedes"],
       models: ["Sedan", "SUV", "Coupe", "Hatchback"],
       selectedBrand: "",
       selectedModel: "",
+      selectedYears: "",
       selectedFuelTypes: [],
+      years: [],
     };
   },
   methods: {
     applyFilters() {
+      if (
+        this.selectedBrand == "" &&
+        this.selectedModel == "" &&
+        this.selectedFuelTypes == "" &&
+        this.selectedYears == ""
+      ) {
+        alert("En az bir ozellik secili olmali...");
+        return;
+      }
       // Burada filtreleme işlemlerini gerçekleştirebilirsiniz
       console.log("Selected Brand:", this.selectedBrand);
       console.log("Selected Model:", this.selectedModel);

@@ -1,6 +1,6 @@
 <template>
   <Navbar />
-  <!-- <header>
+  <header>
     <img alt="Garage logo" class="logo" src="@/assets/logos.png" height="125" />
 
     <div class="wrapper">
@@ -13,7 +13,7 @@
         <router-link to="/register">Register</router-link>
       </nav>
     </div>
-  </header> -->
+  </header>
   <Notification />
   <RouterView />
 </template>
