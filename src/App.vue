@@ -1,6 +1,6 @@
 <template>
-  <Navbar />
-  <header>
+  <Navbar :isAuthenticated="loggedIn" />
+  <!-- <header>
     <img alt="Garage logo" class="logo" src="@/assets/logos.png" height="125" />
 
     <div class="wrapper">
@@ -13,7 +13,7 @@
         <router-link to="/register">Register</router-link>
       </nav>
     </div>
-  </header>
+  </header> -->
   <Notification />
   <RouterView />
 </template>
@@ -28,6 +28,7 @@ import { useAuthStore } from "@/stores/auth.store.js";
 
 const authStore = useAuthStore();
 const loggedIn = ref(authStore.isAuthenticated);
+const isAuthenticated = ref(false);
 
 onMounted(async () => {
   await authStore.checkMe();
@@ -42,7 +43,6 @@ watch(
 </script>
 
 <style scoped>
-
 header {
   line-height: 1.5;
   max-height: 100vh;
