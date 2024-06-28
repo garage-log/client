@@ -27,7 +27,6 @@ export const useVehicleStore = defineStore("vehicle", {
       try {
         const authStore = useAuthStore();
         this.userId = authStore.userId;
-        console.log(this.userId);
         const storedToken = authStore.token;
 
         const res = await axios.post(
@@ -38,7 +37,6 @@ export const useVehicleStore = defineStore("vehicle", {
           }
         );
 
-        console.log(res.data);
       } catch (error) {
         console.error("Error finding vehicles: ", error);
         throw error;

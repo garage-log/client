@@ -1,53 +1,91 @@
 <template>
-    <v-app-bar app color="white" dark>
-      <v-toolbar-title class="text-lg-right">MyLogo</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn text color="gray" class="text-lg-right">
-        Home
-      </v-btn>
-      <v-btn text color="gray" class="text-lg-right">
-        About
-      </v-btn>
-      <v-btn text color="gray" class="text-lg-right">
-        Services
-      </v-btn>
-      <v-btn text color="gray" class="text-lg-right">
-        Contact
-      </v-btn>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-navigation-drawer v-model="drawer" app right>
-        <v-list>
-          <v-list-item link>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-title>About</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-title>Services</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-title>Contact</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-    </v-app-bar>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        drawer: false,
-      };
+  <div>
+    <!-- Navbar -->
+    <nav class="bg-zinc-800 shadow-lg">
+      <div class="container mx-auto flex items-center justify-between">
+        <!-- Logo -->
+        <img alt="Garage logo" class="h-20" src="@/assets/logos.png" />
+
+        <!-- Navbar Links -->
+        <div class="space-x-4">
+          <v-btn text variant="plain" color="white">Home</v-btn>
+          <v-btn text variant="plain" color="white">About</v-btn>
+          <v-btn text variant="plain" color="white">My Cars</v-btn>
+          <v-btn text variant="plain" color="white">Contact</v-btn>
+        </div>
+
+        <!-- Right Side Icons -->
+        <div class="flex items-center space-x-4">
+          <!-- Heart Icon -->
+          <button class="text-white hover:text-teal-300">
+            <v-icon>mdi-account</v-icon>
+          </button>
+
+          <!-- Avatar (Simulated login state) -->
+          <v-avatar v-if="isLoggedIn" size="36">
+            <img
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              alt="Avatar"
+            />
+          </v-avatar>
+          <v-btn v-else text color="white" @click="login">Login</v-btn>
+          <!-- Search Button -->
+          <button @click="toggleSearch" class="text-white hover:text-teal-300">
+            <v-icon>mdi-magnify</v-icon>
+          </button>
+
+          <!-- Logout Icon -->
+          <button class="text-white hover:text-teal-300">
+            <v-icon>mdi-logout</v-icon>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Search Input -->
+    <transition name="fade">
+      <div v-if="showSearch" class="fixed top-16 right-4 z-10">
+        <div class="bg-white p-4 rounded-lg shadow-md">
+          <v-text-field
+            solo
+            flat
+            hide-details
+            placeholder="Search..."
+            v-model="search"
+            @blur="toggleSearch"
+            class="w-64"
+          ></v-text-field>
+        </div>
+      </div>
+    </transition>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Navbar",
+  data() {
+    return {
+      showSearch: false,
+      search: "",
+      isLoggedIn: true,
+    };
+  },
+  methods: {
+    toggleSearch() {
+      this.showSearch = !this.showSearch;
     },
-  };
-  </script>
-  
-  <style scoped>
-  .text-lg-right {
-    margin-left: auto;
-    margin-right: 16px;
-  }
-  </style>
-  
+  },
+};
+</script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

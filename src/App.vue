@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+  DENEME
   <header>
     <img alt="Garage logo" class="logo" src="@/assets/logos.png" height="125" />
 
