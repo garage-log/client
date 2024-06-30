@@ -1,5 +1,6 @@
 <template>
-  <header>
+  <Navbar :isAuthenticated="loggedIn" />
+  <!-- <header>
     <img alt="Garage logo" class="logo" src="@/assets/logos.png" height="125" />
 
     <div class="wrapper">
@@ -12,13 +13,15 @@
         <router-link to="/register">Register</router-link>
       </nav>
     </div>
-  </header>
+  </header> -->
   <Notification />
   <RouterView />
 </template>
 
 <script setup>
-import { ref, watch, onBeforeMount, onMounted } from "vue";
+import Navbar from "./components/NavBar.vue";
+
+import { ref, watch, onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import Notification from "@/components/notification/Notification.vue";
 import { useAuthStore } from "@/stores/auth.store.js";
@@ -42,6 +45,7 @@ watch(
 header {
   line-height: 1.5;
   max-height: 100vh;
+  border: 1px solid red;
 }
 
 .logo {
