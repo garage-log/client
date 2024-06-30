@@ -21,14 +21,13 @@
 <script setup>
 import Navbar from "./components/NavBar.vue";
 
-import { ref, watch, onBeforeMount, onMounted } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import Notification from "@/components/notification/Notification.vue";
 import { useAuthStore } from "@/stores/auth.store.js";
 
 const authStore = useAuthStore();
 const loggedIn = ref(authStore.isAuthenticated);
-const isAuthenticated = ref(false);
 
 onMounted(async () => {
   await authStore.checkMe();

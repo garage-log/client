@@ -117,14 +117,14 @@
 
     <!-- Search Input -->
     <transition name="fade">
-      <div v-if="showSearch" class="fixed top-16 right-4 z-10">
+      <div v-if="searchInput.showSearch" class="fixed top-16 right-4 z-10">
         <div class="bg-white p-4 rounded-lg shadow-md">
           <v-text-field
             solo
             flat
             hide-details
             placeholder="Search..."
-            v-model="search"
+            v-model="searchInput.search"
             @blur="toggleSearch"
             class="w-64"
           ></v-text-field>
@@ -137,8 +137,10 @@
 <script setup>
 import { ref, defineProps } from "vue";
 
-const showSearch = ref(false);
-const search = ref("");
+const searchInput = {
+  showSearch: false,
+  search: ref(""),
+};
 
 const props = defineProps({
   isAuthenticated: {
@@ -149,24 +151,7 @@ const props = defineProps({
 
 const toggleSearch = () => {
   showSearch.value = !showSearch.value;
-  console.log("tiklandi", showSearch.value);
 };
-
-// export default {
-//   name: "Navbar",
-//   data() {
-//     return {
-//       showSearch: false,
-//       search: "",
-//       isLoggedIn: true,
-//     };
-//   },
-//   methods: {
-//     toggleSearch() {
-//       this.showSearch = !this.showSearch;
-//     },
-//   },
-// };
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
   <main class="d-flex">
-    <VechileFilter />
+    <VehicleFilter />
 
     <TheWelcome :username="username" @logout="hanldeLogout" />
   </main>
@@ -8,14 +8,13 @@
 
 <script setup>
 import TheWelcome from "../components/TheWelcome.vue";
-import VechileFilter from "../components/VechileFilter.vue";
+import VehicleFilter from "../components/VehicleFilter.vue";
 
 import { useAuthStore } from "@/stores/auth.store.js";
 import { useVehicleStore } from "@/stores/vehicle.store.js";
 
 import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-// import router from "@/router";
 
 const router = useRouter();
 const authStore = useAuthStore();
